@@ -3,13 +3,15 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 
+
 export default function Card({ type = "product", item }) {
   const isProduct = type === "product";
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   //setToast
-  const { setToast } = useOutletContext();
+  const outlet = useOutletContext?.();
+const setToast = outlet?.setToast;
 
   const hasDiscount = !!item.discont_price;
   const discountPercent = hasDiscount

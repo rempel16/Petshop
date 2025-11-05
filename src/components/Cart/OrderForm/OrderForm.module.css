@@ -34,3 +34,10 @@
   border-radius: var(--radius-sm);
   margin-bottom: var(--space-sm);
 }
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-size: 18px;
+}

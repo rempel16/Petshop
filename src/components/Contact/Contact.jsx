@@ -9,7 +9,7 @@ export default function Contact() {
         <div className={styles.grid}>
           <div className={styles.card}>
             <span className="label">Phone</span>
-            <a className="value" href="tel:+493091588492">
+            <a className={styles.value} href="tel:+493091588492">
               +49 30 915-88492
             </a>
           </div>

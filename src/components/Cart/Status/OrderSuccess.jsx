@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
 import styles from "./Status.module.css";
 
-export default function OrderSuccess() {
+export default function OrderSuccess({ onClose }) {
   return (
-    <div className={styles.statusBox}>
-      <h2>✅ Order placed successfully!</h2>
-      <p>Thank you for your purchase 🎉</p>
-
-      <Link to="/products" className="btn btn-primary">
-        Continue shopping
-      </Link>
+    <div className={styles.modalWrap}>
+      <div className={styles.modal}>
+        <h2>Order successful</h2>
+        <p>Your order has been received. We will contact you soon!</p>
+        <button className="btn btn-primary" onClick={onClose}>
+          Continue shopping
+        </button>
+      </div>
     </div>
   );
 }

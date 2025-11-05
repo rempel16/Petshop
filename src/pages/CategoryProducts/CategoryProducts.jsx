@@ -11,7 +11,6 @@ export default function CategoryProducts() {
   const [categoryName, setCategoryName] = useState("");
 
   useEffect(() => {
-    // Load products of category
     getAllProducts().then((data) => {
       const filtered = data.filter(
         (p) => Number(p.categoryId ?? p.category_id) === Number(id)
@@ -19,12 +18,13 @@ export default function CategoryProducts() {
       setProducts(filtered);
     });
 
-    // Load category name
     getAllCategories().then((cats) => {
       const found = cats.find((c) => c.id === Number(id));
       setCategoryName(found?.title || "Category");
     });
   }, [id]);
+
+  const noProducts = products.length === 0;
 
   return (
     <section className="section section--with-breadcrumbs">
@@ -32,24 +32,24 @@ export default function CategoryProducts() {
         <Breadcrumbs customLabel={categoryName} />
         <h2 className="title">{categoryName}</h2>
 
-        <div className="grid">
-          {products.length === 0 ? (
-            <div style={{ textAlign: "center" }}>
-              <p>There are no products yet. Check out other products. 🐾</p>
-              <Link
-                to="/products"
-                className="btn btn--outline"
-                style={{ marginTop: 16 }}
-              >
-                All products
-              </Link>
-            </div>
-          ) : (
-            products.map((item) => (
+        {noProducts ? (
+          <div style={{ textAlign: "center", marginTop: "40px" }}>
+            <p>No products in this category yet 🐾</p>
+            <Link
+              to="/products"
+              className="btn btn-outline"
+              style={{ marginTop: 16 }}
+            >
+              All products
+            </Link>
+          </div>
+        ) : (
+          <div className="grid">
+            {products.map((item) => (
               <Card key={item.id} type="product" item={item} />
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

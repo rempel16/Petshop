@@ -4,14 +4,15 @@ import { getAllProducts } from "../../api/products";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
+import ProductQtyCounter from "../../components/ProductQtyCounter/ProductQtyCounter";
 import styles from "./ProductPage.module.css";
 
 export default function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [qty, setQty] = useState(1);
+  const [expanded, setExpanded] = useState(false);
   const dispatch = useDispatch();
-
-  // setToast
   const { setToast } = useOutletContext();
 
   useEffect(() => {
@@ -24,6 +25,8 @@ export default function ProductPage() {
   if (!product) return <p>Loading...</p>;
 
   const price = product.discont_price || product.price;
+  const shortDesc = product.description.slice(0, 680);
+  const showReadMore = product.description.length > 680;
 
   return (
     <section className="section section--with-breadcrumbs">
@@ -31,12 +34,14 @@ export default function ProductPage() {
         <Breadcrumbs customLabel={product.title} />
 
         <div className={styles.wrapper}>
+          {/* LEFT BLOCK — IMAGE */}
           <div className={styles.image}>
             <img src={product.image} alt={product.title} />
           </div>
 
+          {/* RIGHT BLOCK — TEXT */}
           <div className={styles.info}>
-            <h2 className="title">{product.title}</h2>
+            <h2 className={styles.title}>{product.title}</h2>
 
             <div className={styles.priceBlock}>
               <span className={styles.price}>${price}</span>
@@ -44,18 +49,32 @@ export default function ProductPage() {
                 <span className={styles.old}>${product.price}</span>
               )}
             </div>
+            <div className={styles.actions}>
+              <ProductQtyCounter onChange={setQty} />
 
-            <p className={styles.desc}>{product.description}</p>
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  dispatch(addToCart({ ...product, qty }));
+                  setToast?.("Added to cart");
+                }}
+              >
+                Add to cart
+              </button>
+            </div>
+            <p className={styles.desc}>
+              {expanded ? product.description : shortDesc}
+              {showReadMore && !expanded && "..."}
+            </p>
 
-            <button
-              className="btn btn-primary"
-              onClick={() => {
-                dispatch(addToCart(product));
-                setToast("Item added to cart");
-              }}
-            >
-              Add to cart
-            </button>
+            {showReadMore && (
+              <button
+                className={styles.moreBtn}
+                onClick={() => setExpanded((p) => !p)}
+              >
+                {expanded ? "Hide" : "Read more"}
+              </button>
+            )}
           </div>
         </div>
       </div>

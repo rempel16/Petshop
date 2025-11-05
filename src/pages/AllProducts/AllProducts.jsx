@@ -6,6 +6,7 @@ import Card from "../../components/Card/Card";
 
 export default function AllProducts() {
   const [products, setProducts] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(12);
   const [filtered, setFiltered] = useState([]);
   const [filters, setFilters] = useState({
     sort: "",
@@ -70,10 +71,20 @@ export default function AllProducts() {
         <FilterBar onFilterChange={setFilters} />
 
         <div className="grid">
-          {filtered.map((item) => (
+          {filtered.slice(0, visibleCount).map((item) => (
             <Card key={item.id} type="product" item={item} />
           ))}
         </div>
+        {visibleCount < filtered.length && (
+          <div style={{ textAlign: "center", marginTop: "32px" }}>
+            <button
+              className="btn btn-primary"
+              onClick={() => setVisibleCount((prev) => prev + 12)}
+            >
+              Load more
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

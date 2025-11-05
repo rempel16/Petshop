@@ -12,25 +12,23 @@ import { resetCartStatus } from "../../features/cart/cartSlice";
 
 export default function CartPage() {
   const items = useSelector((state) => state.cart.items);
-  const cartStatus = useSelector((state) => state.cart.status);
+  const status = useSelector((state) => state.cart.status);
 
   const dispatch = useDispatch();
   const { setToast } = useOutletContext();
 
-  // Success
-  if (cartStatus === "success") {
+  if (status === "success") {
     return (
       <OrderSuccess
         onClose={() => {
           dispatch(resetCartStatus());
-          setToast("✅ Order placed successfully");
+          setToast("Order placed successfully");
         }}
       />
     );
   }
 
-  // Error
-  if (cartStatus === "error") {
+  if (status === "error") {
     return (
       <OrderFail
         onClose={() => {
@@ -41,7 +39,6 @@ export default function CartPage() {
     );
   }
 
-  // no items in basket
   if (items.length === 0) return <EmptyCart />;
 
   return (

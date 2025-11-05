@@ -1,50 +1,69 @@
-// src/components/Breadcrumbs/Breadcrumbs.jsx
 import { Link, useLocation } from "react-router-dom";
 import styles from "./Breadcrumbs.module.css";
 
-export default function Breadcrumbs({ customLabel }) {
+export default function Breadcrumbs({ customLabel, customCategory }) {
   const location = useLocation();
   const parts = location.pathname.split("/").filter(Boolean);
 
-  // нормализация сегментов
-  const normalized = parts.map((p) => {
-    if (p === "category") return "categories";
-    if (p === "product") return "products";
-    return p;
-  });
+  const crumbs = [{ name: "Main page", path: "/" }];
 
-  const crumbs = [
-    { name: "Main page", path: "/" },
-    ...normalized.map((part, idx) => {
-      // спец-случай: если это "products", то путь всегда /products
-      const path =
-        part === "products"
-          ? "/products"
-          : "/" + normalized.slice(0, idx + 1).join("/");
 
-      const isLast = idx === normalized.length - 1;
-      let label = part;
-      if (part === "categories") label = "Categories";
-      if (part === "products") label = "All products";
-      if (isLast && customLabel) label = customLabel;
+  if (parts[0] === "categories") {
+    crumbs.push({ name: "Categories", path: "/categories" });
+  }
 
-      return { name: label, path };
-    }),
-  ];
+  // Category page
+  if (parts[0] === "category") {
+    crumbs.push({ name: "Categories", path: "/categories" });
+
+    if (parts[1] && !customLabel) {
+      crumbs.push({
+        name: customCategory ?? "Category",
+        path: location.pathname,
+      });
+    }
+  }
+
+  // All products
+  if (parts[0] === "products") {
+    crumbs.push({ name: "All products", path: "/products" });
+  }
+
+  // Product page
+  if (parts[0] === "product") {
+    crumbs.push({ name: "All products", path: "/products" });
+
+    if (customCategory) {
+      crumbs.push({
+        name: customCategory,
+        path: `/category/${parts[1]}`,
+      });
+    }
+
+    crumbs.push({
+      name: customLabel ?? "Product",
+      path: location.pathname,
+    });
+  }
+
+  // Sales
+  if (parts[0] === "sales") {
+    crumbs.push({ name: "Sales", path: "/sales" });
+  }
 
   return (
     <div className={styles.breadcrumbs}>
       {crumbs.map((c, i) => (
-        <div key={c.path} className={styles.itemWrap}>
+        <div key={i} className={styles.itemWrap}>
           {i > 0 && <div className={styles.divider} />}
-          <Link
-            className={`${styles.pill} ${
-              i === crumbs.length - 1 ? styles.active : ""
-            }`}
-            to={c.path}
-          >
-            {c.name}
-          </Link>
+
+          {i === crumbs.length - 1 ? (
+            <span className={`${styles.pill} ${styles.active}`}>{c.name}</span>
+          ) : (
+            <Link className={styles.pill} to={c.path}>
+              {c.name}
+            </Link>
+          )}
         </div>
       ))}
     </div>

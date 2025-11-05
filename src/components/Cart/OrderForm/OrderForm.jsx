@@ -6,13 +6,13 @@ import {
   setOrderSuccess,
   setOrderError,
 } from "../../../features/cart/cartSlice";
+import { selectCartTotal } from "../../../features/cart/selectors";
 import styles from "./OrderForm.module.css";
-import { useOutletContext } from "react-router-dom";
 
 export default function OrderForm() {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.cart.items);
-  const { setToast } = useOutletContext();
+  const total = useSelector(selectCartTotal); 
 
   const {
     register,
@@ -24,18 +24,17 @@ export default function OrderForm() {
   const onSubmit = async (data) => {
     const orderData = {
       ...data,
+      total, 
       products: items,
     };
 
     try {
-      await sendOrder(orderData); 
+      await sendOrder(orderData);
       dispatch(setOrderSuccess());
       dispatch(clearCart());
       reset();
-      setToast("Order placed successfully");
-    } catch (error) {
+    } catch (err) {
       dispatch(setOrderError());
-      setToast("Error placing order");
     }
   };
 
@@ -43,7 +42,16 @@ export default function OrderForm() {
     <div className={styles.wrapper}>
       <h3 className={styles.title}>Order details</h3>
 
+      {/* Showing total to the user */}
+      <div className={styles.totalRow}>
+        <span>Total:</span>
+        <strong>${total.toFixed(2)}</strong>
+      </div>
+
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        {/* hidden field */}
+        <input type="hidden" value={total} {...register("total")} />
+
         <input
           {...register("name", { required: true })}
           type="text"

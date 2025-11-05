@@ -15,7 +15,10 @@ export default function Home() {
 
   useEffect(() => {
     getAllCategories().then((data) => setCategories(data.slice(0, 4)));
-    getAllProducts().then((data) => setProducts(data.slice(0, 8)));
+    getAllProducts().then((data) => {
+      const saleItems = data.filter((item) => item.discont_price); 
+      setProducts(saleItems.slice(0, 8)); 
+    });
   }, []);
 
   return (
