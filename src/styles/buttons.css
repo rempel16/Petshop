@@ -1,0 +1,53 @@
+/* Base Button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  font-family: var(--font-main);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  line-height: 1;
+
+  padding: 1rem 2.75rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: none;
+  transition: all .25s ease;
+  text-decoration: none;
+  user-select: none;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.btn-primary:hover {
+  background: var(--color-text);
+}
+.btn-primary:active {
+  transform: scale(.97);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Secondary Banner Button */
+.btn-secondary {
+  background: transparent;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.btn-secondary:hover {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.btn-secondary:active {
+  transform: scale(.97);
+  background: var(--color-bg-alt);
+  color: var(--color-primary);
+}

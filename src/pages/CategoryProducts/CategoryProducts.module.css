@@ -1,0 +1,39 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 2rem;
+}
+
+.pagination {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.page-btn {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: #fff;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: var(--transition);
+}
+
+.page-btn:hover {
+  border-color: var(--color-primary);
+}
+
+.page-btn.active {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center; 
+    gap: 1rem; 
+  }
+}

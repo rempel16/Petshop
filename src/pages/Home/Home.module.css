@@ -1,0 +1,9 @@
+.home {
+  display: flex;
+  flex-direction: column;
+}
+
+.heroWrap {
+  margin-top: -2rem;
+}
+
