@@ -1,6 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
+import { useState } from "react";
+
 import MainLayout from "./layouts/MainLayout.jsx";
 import CategoryProducts from "./pages/CategoryProducts/CategoryProducts";
+import Toast from "./components/Toast/Toast";
 
 // Pages
 import Home from "./pages/Home/Home.jsx";
@@ -11,20 +14,30 @@ import NotFound from "./pages/NotFound/NotFound.jsx";
 import ProductPage from "./pages/ProductPage/ProductPage.jsx";
 import CartPage from "./pages/CartPage/CartPage.jsx";
 
-
 export default function App() {
+  const [toast, setToast] = useState("");
+
   return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<Home />} />
-        <Route path="categories" element={<Categories />} />
-        <Route path="products" element={<AllProducts />} />
-        <Route path="/category/:id" element={<CategoryProducts />} />
-        <Route path="sales" element={<Sales />} />
-        <Route path="/product/:id" element={<ProductPage />} />
-        <Route path="cart" element={<CartPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    </Routes>
+    <>
+      {/* Toast Global */}
+      {toast && <Toast message={toast} onClose={() => setToast("")} />}
+
+      {/* Routes */}
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          {/* передаём setToast во все вложенные страницы */}
+          <Route element={<Outlet context={{ setToast }} />}>
+            <Route index element={<Home />} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="products" element={<AllProducts />} />
+            <Route path="category/:id" element={<CategoryProducts />} />
+            <Route path="sales" element={<Sales />} />
+            <Route path="product/:id" element={<ProductPage />} />
+            <Route path="cart" element={<CartPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Route>
+      </Routes>
+    </>
   );
 }

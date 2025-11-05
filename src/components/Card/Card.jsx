@@ -1,5 +1,5 @@
 import styles from "./Card.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 
@@ -7,6 +7,9 @@ export default function Card({ type = "product", item }) {
   const isProduct = type === "product";
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  //setToast
+  const { setToast } = useOutletContext();
 
   const hasDiscount = !!item.discont_price;
   const discountPercent = hasDiscount
@@ -46,7 +49,8 @@ export default function Card({ type = "product", item }) {
             className={`btn btn-primary ${styles.cardButton}`}
             onClick={(e) => {
               e.stopPropagation();
-              dispatch(addToCart(item)); // ✅ Redux добавление
+              dispatch(addToCart(item));
+              setToast("Item added to cart");
             }}
           >
             Add to cart

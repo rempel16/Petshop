@@ -1,14 +1,18 @@
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { sendOrder } from "../../../api/order";
-import { clearCart } from "../../../features/cart/cartSlice";
+import {
+  clearCart,
+  setOrderSuccess,
+  setOrderError,
+} from "../../../features/cart/cartSlice";
 import styles from "./OrderForm.module.css";
-import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 export default function OrderForm() {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.cart.items);
-  const [status, setStatus] = useState(null); // success | error
+  const { setToast } = useOutletContext();
 
   const {
     register,
@@ -24,27 +28,20 @@ export default function OrderForm() {
     };
 
     try {
-      await axios.post("http://localhost:3333/order/send", orderData);
-      await sendOrder(orderData);
-      setStatus("success");
+      await sendOrder(orderData); 
+      dispatch(setOrderSuccess());
       dispatch(clearCart());
       reset();
+      setToast("Order placed successfully");
     } catch (error) {
-      setStatus("error");
+      dispatch(setOrderError());
+      setToast("Error placing order");
     }
   };
 
   return (
     <div className={styles.wrapper}>
       <h3 className={styles.title}>Order details</h3>
-
-      {status === "success" && (
-        <div className={styles.success}>Order placed successfully!</div>
-      )}
-
-      {status === "error" && (
-        <div className={styles.error}>Something went wrong. Try again.</div>
-      )}
 
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <input

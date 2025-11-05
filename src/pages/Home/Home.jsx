@@ -31,7 +31,6 @@ export default function Home() {
           link="/categories"
           linkText="All categories"
         />
-
         <div className="grid">
           {categories.map((cat) => (
             <Card

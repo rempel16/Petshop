@@ -4,6 +4,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: {
     items: [],
+    status: "idle", // idle | success | error
   },
   reducers: {
     addToCart: (state, action) => {
@@ -16,6 +17,7 @@ const cartSlice = createSlice({
         state.items.push({ ...item, quantity: 1 });
       }
     },
+
     removeFromCart: (state, action) => {
       state.items = state.items.filter((i) => i.id !== action.payload);
     },
@@ -35,6 +37,21 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.items = [];
     },
+
+    // Success
+    setOrderSuccess: (state) => {
+      state.status = "success";
+    },
+
+    // Error
+    setOrderError: (state) => {
+      state.status = "error";
+    },
+
+    // Reset status
+    resetCartStatus: (state) => {
+      state.status = "idle";
+    },
   },
 });
 
@@ -44,6 +61,9 @@ export const {
   increaseQty,
   decreaseQty,
   clearCart,
+  setOrderSuccess,
+  setOrderError,
+  resetCartStatus,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -11,7 +11,7 @@ export default function CategoryProducts() {
   const [categoryName, setCategoryName] = useState("");
 
   useEffect(() => {
-    // Загружаем товары
+    // Load products of category
     getAllProducts().then((data) => {
       const filtered = data.filter(
         (p) => Number(p.categoryId ?? p.category_id) === Number(id)
@@ -19,7 +19,7 @@ export default function CategoryProducts() {
       setProducts(filtered);
     });
 
-    // Загружаем название категории
+    // Load category name
     getAllCategories().then((cats) => {
       const found = cats.find((c) => c.id === Number(id));
       setCategoryName(found?.title || "Category");
@@ -35,12 +35,11 @@ export default function CategoryProducts() {
         <div className="grid">
           {products.length === 0 ? (
             <div style={{ textAlign: "center" }}>
-              <p>Товаров пока нет. Ознакомьтесь с другими товарами 🐾</p>
-
+              <p>There are no products yet. Check out other products. 🐾</p>
               <Link
                 to="/products"
                 className="btn btn--outline"
-                style={{ marginTop: "16px" }}
+                style={{ marginTop: 16 }}
               >
                 All products
               </Link>

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAllProducts } from "../../api/products";
 import { useDispatch } from "react-redux";
@@ -10,6 +10,9 @@ export default function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const dispatch = useDispatch();
+
+  // setToast
+  const { setToast } = useOutletContext();
 
   useEffect(() => {
     getAllProducts().then((data) => {
@@ -46,7 +49,10 @@ export default function ProductPage() {
 
             <button
               className="btn btn-primary"
-              onClick={() => dispatch(addToCart(product))}
+              onClick={() => {
+                dispatch(addToCart(product));
+                setToast("Item added to cart");
+              }}
             >
               Add to cart
             </button>

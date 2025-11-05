@@ -22,7 +22,7 @@ export default function Categories() {
               key={cat.id}
               type="category"
               item={cat}
-              link={`/categories/${cat.id}`}
+              link={`/category/${cat.id}`}
             />
           ))}
         </div>
