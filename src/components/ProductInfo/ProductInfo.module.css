@@ -1,0 +1,147 @@
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  font-family: var(--font-main);
+  color: var(--color-text);
+}
+
+.title {
+  font-weight: 700;
+  font-size: var(--fs-lg);
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  color: var(--color-text);
+}
+
+/* ---------- PRICE BLOCK ---------- */
+.priceBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.priceRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.price {
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--color-text);
+}
+
+.oldPrice {
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--color-secondary);
+  text-decoration: line-through;
+}
+
+.badge {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
+}
+
+/* ---------- COUNTER + ADD ---------- */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.qtyWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 180px;
+  height: 58px;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+}
+
+.qtyBtn {
+  width: 56px;
+  height: 100%;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.qtyBtn:hover {
+  color: var(--color-primary);
+}
+
+.qtyValue {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.addBtn {
+  height: 58px;
+  padding: 0 var(--space-md);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+}
+
+
+.description {
+  margin-top: var(--space-md);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.subtitle {
+  font-weight: 600;
+  font-size: var(--fs-md);
+  margin-bottom: var(--space-xs);
+}
+
+.moreBtn {
+  display: inline-block;
+  margin-top: var(--space-xs);
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: var(--fs-sm);
+  transition: var(--transition);
+}
+
+.moreBtn:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .info {
+    align-items: center;
+    text-align: center;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+  }
+
+  .qtyWrap {
+    width: 100%;
+    max-width: 240px;
+  }
+
+  .addBtn {
+    width: 100%;
+  }
+}

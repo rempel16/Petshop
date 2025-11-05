@@ -1,79 +1,65 @@
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 3rem;
-  align-items: flex-start;
-}
-
-.image img {
+  grid-template-columns: 780px 1fr; 
+  gap: var(--space-lg);
+  align-items: start;
+  justify-content: center;
+  margin: 0 auto;
   width: 100%;
+}
+
+.wrapper .gallery {
+  width: 780px;
+  height: 572px;
+}
+
+.wrapper .gallery img {
+  max-width: 100%;
+  height: auto;
   border-radius: var(--radius-lg);
-  background: #fff;
-}
-.info {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-.title {
-  font-size: var(--fs-xl);
-  font-weight: 700;
-  margin-bottom: 1.5rem;
+  object-fit: cover;
 }
 
-.priceBlock {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
+@media (max-width: 1200px) {
+  .wrapper {
+    grid-template-columns: 600px 1fr;
+    gap: var(--space-md);
+  }
+
+  .wrapper .gallery {
+    width: 600px;
+    height: auto;
+  }
 }
 
-.price {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--color-primary);
+@media (max-width: 992px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: var(--space-md);
+  }
+
+  .wrapper .gallery {
+    width: 90%;
+    max-width: 520px;
+    height: auto;
+  }
 }
 
-.old {
-  font-size: 1.25rem;
-  text-decoration: line-through;
-  color: var(--color-secondary);
-}
-
-.desc {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--color-text);
-  margin-bottom: 1rem;
-}
-
-.moreBtn {
-  font-size: 0.9rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--color-primary);
-  margin-bottom: 2rem;
-}
-
-.actions {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-/* Mobile */
 @media (max-width: 768px) {
   .wrapper {
     grid-template-columns: 1fr;
+    gap: var(--space-sm);
   }
 
-  .title {
-    font-size: 2rem;
+  .wrapper .gallery {
+    width: 100%;
+    max-width: 400px;
   }
 
-  .actions {
-    flex-direction: column;
-    align-items: stretch;
+  .wrapper .gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
   }
 }

@@ -1,32 +1,87 @@
 import { useParams, useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAllProducts } from "../../api/products";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../features/cart/cartSlice";
+import axios from "../../api/axios";
+
+import ProductGallery from "../../components/ProductGallery/ProductGallery";
+import ProductInfo from "../../components/ProductInfo/ProductInfo";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
-import ProductQtyCounter from "../../components/ProductQtyCounter/ProductQtyCounter";
+
 import styles from "./ProductPage.module.css";
 
 export default function ProductPage() {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  const [qty, setQty] = useState(1);
-  const [expanded, setExpanded] = useState(false);
-  const dispatch = useDispatch();
   const { setToast } = useOutletContext();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    getAllProducts().then((data) => {
-      const found = data.find((p) => p.id === Number(id));
-      setProduct(found);
-    });
+    let isMounted = true;
+    setLoading(true);
+    setError("");
+
+    axios
+      .get(`/products/${id}`)
+      .then(({ data }) => {
+        if (!isMounted) return;
+
+        // если backend возвращает массив всех товаров
+        if (Array.isArray(data)) {
+          const found = data.find((p) => String(p.id) === String(id));
+          setProduct(found);
+        }
+        // если backend возвращает объект одного товара
+        else {
+          setProduct(data);
+        }
+      })
+      .catch((err) => {
+        if (!isMounted) return;
+        console.error("Ошибка при загрузке продукта:", err);
+        setError("Failed to load product data.");
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, [id]);
 
-  if (!product) return <p>Loading...</p>;
+  // состояния загрузки / ошибки
+  if (loading)
+    return (
+      <section className="section">
+        <div className="container">Loading product...</div>
+      </section>
+    );
 
-  const price = product.discont_price || product.price;
-  const shortDesc = product.description.slice(0, 680);
-  const showReadMore = product.description.length > 680;
+  if (error)
+    return (
+      <section className="section">
+        <div className="container">{error}</div>
+      </section>
+    );
+
+  if (!product)
+    return (
+      <section className="section">
+        <div className="container">Product not found.</div>
+      </section>
+    );
+
+  // извлекаем изображения (универсально)
+  const images =
+    product.images ||
+    (product.image
+      ? [product.image]
+      : [
+          "/src/assets/images/image123.png",
+          "/src/assets/images/image123.png",
+          "/src/assets/images/image123.png",
+          "/src/assets/images/image123.png",
+        ]);
 
   return (
     <section className="section section--with-breadcrumbs">
@@ -34,48 +89,8 @@ export default function ProductPage() {
         <Breadcrumbs customLabel={product.title} />
 
         <div className={styles.wrapper}>
-          {/* LEFT BLOCK — IMAGE */}
-          <div className={styles.image}>
-            <img src={product.image} alt={product.title} />
-          </div>
-
-          {/* RIGHT BLOCK — TEXT */}
-          <div className={styles.info}>
-            <h2 className={styles.title}>{product.title}</h2>
-
-            <div className={styles.priceBlock}>
-              <span className={styles.price}>${price}</span>
-              {product.discont_price && (
-                <span className={styles.old}>${product.price}</span>
-              )}
-            </div>
-            <div className={styles.actions}>
-              <ProductQtyCounter onChange={setQty} />
-
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  dispatch(addToCart({ ...product, qty }));
-                  setToast?.("Added to cart");
-                }}
-              >
-                Add to cart
-              </button>
-            </div>
-            <p className={styles.desc}>
-              {expanded ? product.description : shortDesc}
-              {showReadMore && !expanded && "..."}
-            </p>
-
-            {showReadMore && (
-              <button
-                className={styles.moreBtn}
-                onClick={() => setExpanded((p) => !p)}
-              >
-                {expanded ? "Hide" : "Read more"}
-              </button>
-            )}
-          </div>
+          <ProductGallery images={images} title={product.title} />
+          <ProductInfo product={product} setToast={setToast} />
         </div>
       </div>
     </section>
