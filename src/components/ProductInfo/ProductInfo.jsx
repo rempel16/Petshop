@@ -32,7 +32,7 @@ export default function ProductInfo({ product, setToast }) {
     <div className={styles.info}>
       <h1 className={styles.title}>{product.title}</h1>
 
-      {/* ---------- PRICE ROW ---------- */}
+      {/* PRICE ROW */}
       <div className={styles.priceRow}>
         <span className={styles.price}>${price}</span>
 
@@ -47,7 +47,7 @@ export default function ProductInfo({ product, setToast }) {
       {/* ACTIONS */}
 <div className={styles.actions}>
 
-  {/* ✅ qty selector — ИМЕНА КЛАССОВ ПОЛНОСТЬЮ СОВПАДАЮТ С ТВОИМИ */}
+  {/* qty selector */}
   <div className={styles.qty}>
     <button className={styles["qty-btn"]} onClick={dec}>
       –

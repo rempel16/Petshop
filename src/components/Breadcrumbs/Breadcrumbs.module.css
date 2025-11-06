@@ -43,7 +43,6 @@
   background-color: var(--color-border-light);
 }
 
-/* Mobile */
 @media (max-width: 768px) {
 
   .pill {
