@@ -8,6 +8,8 @@ import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 
 import styles from "./ProductPage.module.css";
 
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3333";
+
 export default function ProductPage() {
   const { id } = useParams();
   const { setToast } = useOutletContext();
@@ -25,18 +27,30 @@ export default function ProductPage() {
       .then(({ data }) => {
         if (!isMounted) return;
 
+        let productData = data;
+
         if (Array.isArray(data)) {
-          const found = data.find((p) => String(p.id) === String(id));
-          setProduct(found);
+          productData = data.find((p) => String(p.id) === String(id));
         }
 
-        else {
-          setProduct(data);
+        if (!productData) {
+          setProduct(null);
+          return;
         }
+
+        const rawImage = productData.image || productData.images?.[0] || null;
+
+        const normalizedImage =
+          rawImage && rawImage.startsWith("/") ? BASE_URL + rawImage : rawImage;
+
+        setProduct({
+          ...productData,
+          image: normalizedImage,
+        });
       })
       .catch((err) => {
         if (!isMounted) return;
-        console.error("Ошибка при загрузке продукта:", err);
+        console.error("Error", err);
         setError("Failed to load product data.");
       })
       .finally(() => {
@@ -47,7 +61,6 @@ export default function ProductPage() {
       isMounted = false;
     };
   }, [id]);
-
 
   if (loading)
     return (
@@ -70,16 +83,7 @@ export default function ProductPage() {
       </section>
     );
 
-  const images =
-    product.images ||
-    (product.image
-      ? [product.image]
-      : [
-          "/src/assets/images/image123.png",
-          "/src/assets/images/image123.png",
-          "/src/assets/images/image123.png",
-          "/src/assets/images/image123.png",
-        ]);
+  const images = product.images || [product.image];
 
   return (
     <section className="section section--with-breadcrumbs">

@@ -6,24 +6,51 @@ const cartSlice = createSlice({
     items: [],
     status: "idle",
   },
+
   reducers: {
     addToCart(state, action) {
-      const item = action.payload;
-      const existing = state.items.find((i) => i.id === item.id);
-      if (existing) existing.quantity += 1;
-      else state.items.push({ ...item, quantity: 1 });
+      const payload = action.payload;
+
+      const image =
+        payload.image ||
+        payload.images?.[0] ||
+        payload.thumbnail ||
+        payload.img ||
+        "";
+
+      const existing = state.items.find((i) => i.id === payload.id);
+
+      if (existing) {
+        existing.quantity += 1;
+        return;
+      }
+
+      const item = {
+        id: payload.id,
+        title: payload.title,
+        price: payload.price,
+        discont_price: payload.discont_price || null,
+        image, 
+        quantity: 1,
+      };
+
+      state.items.push(item);
     },
+
     removeFromCart(state, action) {
       state.items = state.items.filter((i) => i.id !== action.payload);
     },
+
     increaseQty(state, action) {
       const item = state.items.find((i) => i.id === action.payload);
       if (item) item.quantity++;
     },
+
     decreaseQty(state, action) {
       const item = state.items.find((i) => i.id === action.payload);
       if (item && item.quantity > 1) item.quantity--;
     },
+
     clearCart(state) {
       state.items = [];
     },
@@ -31,9 +58,11 @@ const cartSlice = createSlice({
     setOrderSuccess(state) {
       state.status = "success";
     },
+
     setOrderError(state) {
       state.status = "error";
     },
+
     resetCartStatus(state) {
       state.status = "idle";
     },

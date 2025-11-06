@@ -52,7 +52,6 @@ export default function CartPage() {
 
       {items.length > 0 && status !== "success" && (
         <>
-          <div className={styles.divider}></div>
 
           <div className={styles.cartGrid}>
             <div className={styles.left}>
