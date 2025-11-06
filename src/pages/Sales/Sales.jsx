@@ -41,7 +41,7 @@ export default function Sales() {
         <Breadcrumbs customLabel="Sales" />
         <h2 className="title">Discounted items</h2>
 
-        <FilterBar active={mode} onChange={setMode} />
+        <FilterBar active={mode} onChange={setMode} hideDiscount />
 
         <div className="grid">
           {filtered.map((item) => (

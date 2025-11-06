@@ -25,12 +25,11 @@ export default function ProductPage() {
       .then(({ data }) => {
         if (!isMounted) return;
 
-        // если backend возвращает массив всех товаров
         if (Array.isArray(data)) {
           const found = data.find((p) => String(p.id) === String(id));
           setProduct(found);
         }
-        // если backend возвращает объект одного товара
+
         else {
           setProduct(data);
         }
@@ -49,7 +48,7 @@ export default function ProductPage() {
     };
   }, [id]);
 
-  // состояния загрузки / ошибки
+
   if (loading)
     return (
       <section className="section">
@@ -71,7 +70,6 @@ export default function ProductPage() {
       </section>
     );
 
-  // извлекаем изображения (универсально)
   const images =
     product.images ||
     (product.image

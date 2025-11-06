@@ -36,6 +36,11 @@ html, body {
    width: 100% !important;
 }
 
+.footer {
+  margin: 0;
+  padding: 0;
+}
+
 /* Typography */
 .title {
   font-size: clamp(4rem, 8vw, 6rem);
@@ -93,26 +98,34 @@ video {
 .checkboxWrap {
   display: flex;
   align-items: center;
-  gap: 0.625rem; 
+  gap: 0.625rem;
   cursor: pointer;
-  font-size: var(--font-size-sm);
+  font-size: var(--fs-md);
   font-weight: 500;
   color: var(--color-text);
 }
 
 .checkboxWrap input[type="checkbox"] {
-  width: 2.25rem;  
-  height: 2.25rem; 
+  width: 2.25rem;
+  height: 2.25rem;
   appearance: none;
   border: 1px solid var(--color-border-light);
-  border-radius: 0.25rem; 
+  border-radius: 0.25rem;
   background: #fff;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 60%;
   cursor: url("/src/assets/icons/hand.svg") 4 4, pointer;
   transition: var(--transition);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
 }
+
+.checkboxWrap input[type="checkbox"]:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  background-image: url("/src/assets/icons/check.svg");
+}
+
+
 
 /* Cursor */
 button, a, [role="button"], .btn {
@@ -123,7 +136,7 @@ button, a, [role="button"], .btn {
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem; /* 32px */
+  gap: 2rem; 
 }
 
 @media (max-width: 768px) {
@@ -131,13 +144,6 @@ button, a, [role="button"], .btn {
   .container {
     padding: 0 var(--space-md);
     margin-bottom: var(--space-lg);
-  }
-}
-
-/* Tablet 3 columns */
-@media (max-width: 1280px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
   }
 }
 

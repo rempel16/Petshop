@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./FilterBar.module.css";
 
-export default function FilterBar({ onFilterChange }) {
+export default function FilterBar({ onFilterChange, hideDiscount = false }) {
   const [sort, setSort] = useState("");
   const [openSort, setOpenSort] = useState(false);
   const [minPrice, setMinPrice] = useState("");
@@ -48,21 +48,23 @@ export default function FilterBar({ onFilterChange }) {
       </div>
 
       {/* Discount */}
-      <div className={styles.filterBlock}>
-        <span className={styles.label}>Discounted items</span>
+      {!hideDiscount && (
+        <div className={styles.filterBlock}>
+          <span className={styles.label}>Discounted items</span>
 
-        <label className="checkboxWrap">
-          <input
-            type="checkbox"
-            checked={discountOnly}
-            onChange={() => {
-              const newValue = !discountOnly;
-              setDiscountOnly(newValue);
-              handleChange({ discountOnly: newValue });
-            }}
-          />
-        </label>
-      </div>
+          <label className="checkboxWrap">
+            <input
+              type="checkbox"
+              checked={discountOnly}
+              onChange={() => {
+                const newValue = !discountOnly;
+                setDiscountOnly(newValue);
+                handleChange({ discountOnly: newValue });
+              }}
+            />
+          </label>
+        </div>
+      )}
 
       {/* Sort */}
       <div className={styles.filterBlock}>

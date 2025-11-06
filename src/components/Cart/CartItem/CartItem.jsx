@@ -16,10 +16,9 @@ export default function CartItem({ item }) {
         <p className={styles.title}>{item.title}</p>
 
         <div className={styles.bottomRow}>
-          {/* 🟢 Счётчик слева */}
+         
           <QuantityControl id={item.id} quantity={item.quantity} />
 
-          {/* 🟢 Цена справа */}
           <div className={styles.priceWrap}>
             <span className={styles.price}>€{price}</span>
             {hasDiscount && <span className={styles.old}>€{item.price}</span>}

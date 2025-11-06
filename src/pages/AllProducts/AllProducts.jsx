@@ -22,16 +22,13 @@ export default function AllProducts() {
     });
   }, []);
 
-  // 🧠 Apply filters
   useEffect(() => {
     let result = [...products];
 
-    // Filter by discount
     if (filters.discountOnly) {
       result = result.filter((p) => p.discont_price);
     }
 
-    // Price filters
     if (filters.minPrice) {
       result = result.filter(
         (p) => (p.discont_price || p.price) >= Number(filters.minPrice)
@@ -44,7 +41,6 @@ export default function AllProducts() {
       );
     }
 
-    // Sorting
     if (filters.sort === "price: low-high") {
       result.sort(
         (a, b) => (a.discont_price || a.price) - (b.discont_price || b.price)

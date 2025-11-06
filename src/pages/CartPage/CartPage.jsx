@@ -19,6 +19,7 @@ export default function CartPage() {
   const dispatch = useDispatch();
   const { setToast } = useOutletContext();
 
+  // SUCCESS
   if (status === "success") {
     useEffect(() => {
       document.body.style.overflow = "hidden";
@@ -26,44 +27,53 @@ export default function CartPage() {
     }, []);
 
     return (
-      <OrderSuccess
-        onClose={() => {
-          dispatch(resetCartStatus());
-          setToast("Order placed successfully");
-        }}
-      />
-    );
-  }
-
-  if (status === "error") {
-    navigate("/404");
-    return null;
-  }
-
-
-  if (items.length === 0) return <EmptyCart />;
-
-  return (
-    <section className={styles.cartSection}>
-      <div className={styles.header}>
+      <>
         <SectionHeader
           title="Shopping cart"
           link="/products"
           linkText="Back to the store"
         />
-      </div>
 
-      <div className={styles.divider}></div>
+        <OrderSuccess
+          onClose={() => {
+            dispatch(resetCartStatus());
+            setToast("Order placed successfully");
+          }}
+        />
+      </>
+    );
+  }
 
-      <div className={styles.cartGrid}>
-        <div className={styles.left}>
-          <CartItemsList />
-        </div>
+  // ERROR
+  if (status === "error") {
+    return <OrderFail onClose={() => dispatch(resetCartStatus())} />;
+  }
 
-        <div className={styles.right}>
-          <OrderForm />
-        </div>
-      </div>
+  return (
+    <section className={styles.cartSection}>
+      <SectionHeader
+        title="Shopping cart"
+        link="/products"
+        linkText="Back to the store"
+      />
+
+      {items.length === 0 ? (
+        <EmptyCart />
+      ) : (
+        <>
+          <div className={styles.divider}></div>
+
+          <div className={styles.cartGrid}>
+            <div className={styles.left}>
+              <CartItemsList />
+            </div>
+
+            <div className={styles.right}>
+              <OrderForm />
+            </div>
+          </div>
+        </>
+      )}
     </section>
   );
 }

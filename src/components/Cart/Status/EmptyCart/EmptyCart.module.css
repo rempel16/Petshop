@@ -1,55 +1,18 @@
-.emptyWrap {
+.section {
   width: 100%;
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 2rem 0;
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.title {
-  font-size: 3rem;
-  font-weight: 700;
-  line-height: 1.1;
-  width: 100%;
-  height: 4.375rem; 
-  display: flex;
-  align-items: center;
-}
-
-
-.box {
-  width: 33.75rem; 
-  min-height: 7.25rem; 
-  display: flex;
-  flex-direction: column;
-  gap: 2rem; 
+  justify-content: flex-start;
+  padding-top: 3rem;
 }
 
 .text {
-  font-size: 1.25rem; 
-  font-weight: 500;
-  line-height: 1.3;
-  color: var(--color-text);
+  font-size: var(--fs-md);
+  margin-bottom: 2rem;
 }
 
-.button {
-  width: 19.5625rem; 
-  height: 3.625rem; 
-  padding: 1rem 3.5rem; 
-  background: var(--color-primary);
+.btn {
+  padding: 0 2.5rem;
   border-radius: var(--radius-sm);
-  color: #fff;
-  font-size: 1.25rem; 
+  font-size: var(--fs-md);
   font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-.button:hover {
-  opacity: 0.85;
 }

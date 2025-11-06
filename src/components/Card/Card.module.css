@@ -47,7 +47,7 @@
   position: absolute;
   bottom: 1rem;
   left: 50%;
-  transform: translate(-50%, 10px); /* чуть ниже изначально */
+  transform: translate(-50%, 10px); 
   width: calc(100% - 2rem);
   opacity: 0;
   pointer-events: none;
@@ -57,7 +57,7 @@
 
 .card:hover .cardButton {
   opacity: 1;
-  transform: translate(-50%, 0); /* поднимается чуть вверх */
+  transform: translate(-50%, 0); 
   pointer-events: auto;
 }
 

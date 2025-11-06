@@ -45,8 +45,3 @@
   --transition: 0.25s ease-in-out;
 }
 
-@media (max-width: 1200px) {
-  :root {
-    --container: 92vw;
-  }
-}
