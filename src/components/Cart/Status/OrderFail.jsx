@@ -1,15 +1,12 @@
-import styles from "./Status.module.css";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function OrderFail({ onClose }) {
-  return (
-    <div className={styles.modalWrap}>
-      <div className={styles.modal}>
-        <h2>Order failed</h2>
-        <p>Something went wrong. Please try again.</p>
-        <button className="btn btn-primary" onClick={onClose}>
-          Try again
-        </button>
-      </div>
-    </div>
-  );
+export default function OrderFail() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/404");
+  }, [navigate]);
+
+  return null;
 }

@@ -1,56 +1,121 @@
 .cartItem {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-sm);
-  border-bottom: 1px solid var(--color-border-light);
+  justify-content: space-between;
+  width: 100%; 
+  min-height: 11.25rem; 
+  gap: 2rem; 
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg);
+  transition: box-shadow var(--transition);
 }
 
+.cartItem:hover {
+  box-shadow: var(--shadow-md);
+}
+
+
 .img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
+  width: clamp(150px, 18vw, 200px); 
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-top-left-radius: var(--radius-lg);
+  border-bottom-left-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  flex-shrink: 0;
 }
 
 .info {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  gap: 1.5rem; 
+  min-width: 0;
 }
+
 
 .title {
-  font-size: var(--fs-md);
-  font-weight: 600;
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 1.25rem; 
+  line-height: 130%;
+  color: var(--color-text);
+  margin: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
+
+.bottomRow {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 2rem; 
+}
+
+
 .priceWrap {
-  margin: 4px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem; 
 }
 
 .price {
-  font-size: var(--fs-md);
+  font-family: var(--font-main);
   font-weight: 600;
-  color: var(--color-primary);
-}
-
-.priceLine {
-  font-size: var(--fs-sm);
-  color: var(--color-secondary);
-}
-
-.priceLine span {
-  font-weight: 700;
+  font-size: 2.5rem; 
+  line-height: 110%;
   color: var(--color-text);
 }
 
+.old {
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 1.25rem; 
+  line-height: 130%;
+  color: var(--color-secondary);
+  text-decoration: line-through;
+}
+
+
 .removeBtn {
-  font-size: 20px;
   background: none;
   border: none;
-  color: var(--color-secondary);
+  color: var(--color-text);
+  font-size: 1.5rem;
   cursor: pointer;
-  transition: 0.2s ease;
+  padding: 0.5rem;
+  transition: color var(--transition);
+  align-self: flex-start;
 }
 
 .removeBtn:hover {
-  color: var(--color-error);
-  transform: scale(1.2);
+  color: var(--color-primary);
+}
+
+@media (max-width: 992px) {
+  .cartItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: var(--radius-lg);
+  }
+
+  .bottomRow {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .price {
+    font-size: 2rem;
+  }
 }

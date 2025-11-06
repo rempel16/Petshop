@@ -1,33 +1,69 @@
-.qtyWrap {
+.qty {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.75rem;
-  background: var(--color-bg-alt);
-  padding: 0.5rem 1rem;
+  width: 12.5rem;
+  height: 3.625rem;
+
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+
+  background-color: var(--color-bg);
+}
+
+.qty-btn {
+  width: 58px;
+  height: 58px;
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-sm);
-}
-
-.btn {
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: var(--color-primary);
-  color: #fff;
-  font-size: 1.25rem;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn:hover {
-  background: var(--color-text);
-}
-
-.value {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
   font-size: var(--fs-md);
   font-weight: 600;
-  min-width: 24px;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.qty-btn:hover {
+  background-color: var(--color-bg-alt);
+}
+
+.qty-value {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 6rem;
+  height: 3.625rem;
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: var(--fs-md);
+  line-height: 130%;
+  letter-spacing: 0;
   text-align: center;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+@media (max-width: 480px) {
+  .qty {
+    width: 160px;
+    height: 48px;
+  }
+
+  .qty-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  .qty-value {
+    width: 64px;
+    height: 48px;
+    font-size: 18px;
+  }
 }

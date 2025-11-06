@@ -14,7 +14,7 @@
   color: var(--color-text);
 }
 
-/* ---------- PRICE BLOCK ---------- */
+
 .priceBlock {
   display: flex;
   flex-direction: column;
@@ -48,7 +48,6 @@
   border-radius: var(--radius-md);
 }
 
-/* ---------- COUNTER + ADD ---------- */
 .actions {
   display: flex;
   align-items: center;
@@ -57,34 +56,49 @@
 
 .qtyWrap {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 180px;
+  align-items: center;
+  width: 200px;
   height: 58px;
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-md);
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
   background-color: var(--color-bg);
 }
 
 .qtyBtn {
-  width: 56px;
-  height: 100%;
-  font-size: 1.25rem;
-  font-weight: 600;
+  width: 58px;
+  height: 58px;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
   color: var(--color-text);
-  background: none;
-  border: none;
+  font-family: var(--font-main);
+  font-size: 24px;
+  font-weight: 600;
   cursor: pointer;
-  transition: var(--transition);
+  transition: background var(--transition);
 }
 
 .qtyBtn:hover {
-  color: var(--color-primary);
+  background-color: var(--color-bg-alt);
 }
 
 .qtyValue {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 96px;
+  height: 58px;
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 20px;
+  line-height: 130%;
+  letter-spacing: 0;
+  text-align: center;
+  color: var(--color-text);
+  background-color: var(--color-bg);
 }
 
 .addBtn {
@@ -137,11 +151,19 @@
   }
 
   .qtyWrap {
-    width: 100%;
-    max-width: 240px;
+    width: 160px;
+    height: 48px;
   }
 
-  .addBtn {
-    width: 100%;
+  .qtyBtn {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  .qtyValue {
+    width: 64px;
+    height: 48px;
+    font-size: 18px;
   }
 }

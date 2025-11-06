@@ -12,7 +12,7 @@ import styles from "./OrderForm.module.css";
 export default function OrderForm() {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.cart.items);
-  const total = useSelector(selectCartTotal); 
+  const total = useSelector(selectCartTotal);
 
   const {
     register,
@@ -22,12 +22,7 @@ export default function OrderForm() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const orderData = {
-      ...data,
-      total, 
-      products: items,
-    };
-
+    const orderData = { ...data, total, products: items };
     try {
       await sendOrder(orderData);
       dispatch(setOrderSuccess());
@@ -40,16 +35,19 @@ export default function OrderForm() {
 
   return (
     <div className={styles.wrapper}>
-      <h3 className={styles.title}>Order details</h3>
+      <div className={styles.header}>
+        <h3 className={styles.title}>Order details</h3>
 
-      {/* Showing total to the user */}
-      <div className={styles.totalRow}>
-        <span>Total:</span>
-        <strong>${total.toFixed(2)}</strong>
+        <div className={styles.summary}>
+          <h3>{items.length} items</h3>
+          <div className={styles.totalRow}>
+            <span>Total</span>
+            <strong>${total.toFixed(2)}</strong>
+          </div>
+        </div>
       </div>
 
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        {/* hidden field */}
         <input type="hidden" value={total} {...register("total")} />
 
         <input
@@ -63,7 +61,7 @@ export default function OrderForm() {
         <input
           {...register("phone", { required: true })}
           type="tel"
-          placeholder="Phone"
+          placeholder="Phone number"
           className={styles.input}
         />
         {errors.phone && <p className={styles.error}>Enter your phone</p>}
@@ -76,7 +74,7 @@ export default function OrderForm() {
         />
         {errors.email && <p className={styles.error}>Enter your email</p>}
 
-        <button className="btn btn-primary" type="submit">
+        <button className={styles.btnSubmit} type="submit">
           Order
         </button>
       </form>
