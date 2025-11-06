@@ -14,7 +14,7 @@
   background: var(--color-primary);
   padding: 2rem;            
   border-radius: var(--radius-lg);
-  color: white;
+  color: var(--color-bg);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -33,6 +33,7 @@
 }
 
 .title {
+  color: var(--color-bg) !important;
   font-size: 2.5rem;        
   font-weight: 600;
   line-height: 1.1;
@@ -41,6 +42,7 @@
 
 
 .text {
+  color: var(--color-bg) !important;
   width: 26.5rem;            
   font-size: 1.25rem;        
   font-weight: 600;

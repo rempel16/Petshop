@@ -39,7 +39,7 @@ export default function OrderForm() {
         <h3 className={styles.title}>Order details</h3>
 
         <div className={styles.summary}>
-          <h3>{items.length} items</h3>
+          <p>{items.length} items</p>
           <div className={styles.totalRow}>
             <span>Total</span>
             <strong>${total.toFixed(2)}</strong>

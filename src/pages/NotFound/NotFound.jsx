@@ -19,7 +19,7 @@ export default function NotFound() {
           go back to the homepage.
         </p>
 
-        <Link to="/" className={styles.btn}>
+        <Link to="/" className={`btn btn-primary ${styles.btn}`}>
           Go Home
         </Link>
       </div>

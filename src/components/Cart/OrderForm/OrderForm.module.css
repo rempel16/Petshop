@@ -1,10 +1,8 @@
 .wrapper {
-  width: 34.25rem; 
-  min-height: 36.375rem; 
+  max-height: 40rem; 
   display: flex;
   flex-direction: column;
-  gap: 2rem; 
-  padding: 0 2rem;
+  padding: 1rem 2rem;
   background: var(--color-bg-alt);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -13,36 +11,38 @@
 .header {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
 }
 
 .title {
   font-family: var(--font-main);
   font-weight: 700;
-  font-size: var(--fs-xl); 
+  font-size: var(--fs-xl);
   color: var(--color-text);
+  margin: 0.5rem 0;
 }
 
-.summary h3 {
+.summary p {
   font-family: var(--font-main);
   font-weight: 500;
   font-size: var(--fs-xl);
   color: var(--color-secondary);
+  margin: 0;
 }
 
 .totalRow {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline; 
+  align-items: baseline;
+  margin-bottom: 1.5rem;
 }
 
 .totalRow span {
   font-weight: 500;
-  font-size: var(--fs-lg);
   font-size: var(--fs-xl);
   color: var(--color-secondary);
 }
-
 
 .totalRow strong {
   font-weight: 700;
@@ -54,9 +54,10 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg); 
   width: 30.25rem;
   min-height: 18.5rem; 
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 .input {
@@ -86,10 +87,11 @@
 }
 
 .btnSubmit {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
   width: 30.25rem; 
   height: 3.625rem; 
   border-radius: var(--radius-sm);
-  padding: 1rem 2rem;
   font-family: var(--font-main);
   font-weight: 600;
   font-size: var(--fs-md);

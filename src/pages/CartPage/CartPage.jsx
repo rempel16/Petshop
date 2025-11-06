@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import CartItemsList from "../../components/Cart/CartItemsList/CartItemsList";
@@ -18,33 +18,15 @@ export default function CartPage() {
   const status = useSelector((state) => state.cart.status);
   const dispatch = useDispatch();
   const { setToast } = useOutletContext();
+  const navigate = useNavigate();
 
-  // SUCCESS
-  if (status === "success") {
-    useEffect(() => {
+  useEffect(() => {
+    if (status === "success") {
       document.body.style.overflow = "hidden";
       return () => (document.body.style.overflow = "auto");
-    }, []);
+    }
+  }, [status]);
 
-    return (
-      <>
-        <SectionHeader
-          title="Shopping cart"
-          link="/products"
-          linkText="Back to the store"
-        />
-
-        <OrderSuccess
-          onClose={() => {
-            dispatch(resetCartStatus());
-            setToast("Order placed successfully");
-          }}
-        />
-      </>
-    );
-  }
-
-  // ERROR
   if (status === "error") {
     return <OrderFail onClose={() => dispatch(resetCartStatus())} />;
   }
@@ -57,9 +39,18 @@ export default function CartPage() {
         linkText="Back to the store"
       />
 
-      {items.length === 0 ? (
-        <EmptyCart />
-      ) : (
+      {status === "success" && (
+        <OrderSuccess
+          onClose={() => {
+            dispatch(resetCartStatus());
+            setToast("Order placed successfully");
+          }}
+        />
+      )}
+
+      {items.length === 0 && status !== "success" && <EmptyCart />}
+
+      {items.length > 0 && status !== "success" && (
         <>
           <div className={styles.divider}></div>
 
